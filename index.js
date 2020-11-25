@@ -610,45 +610,54 @@ function currencyEx (dollars, country){
           name: "Germany",
           dollar: "Euro",
           rate: 0.85,
-          initial: "currencyInitals"
+          initial: "EUR"
         },
         {
           name: "Britain",
           dollar: "Pounds",
           rate: 0.77,
-          initial: "currencyInitals"
+          initial: "GBP"
         },    
         {
           name: "Turkey",
           dollar: "Lira",
           rate: 6.96,
-          initial: "currencyInitals"
+          initial: "TRY"
         }, 
         {
           name: "Bulgaria",
           dollar: "Lev",
           rate: 1.66,
-          initial: "currencyInitals"
+          initial: "BGN"
         }, 
         {
           name: "Ukraine",
           dollar: "Hryvnia",
           rate: 27.7,
-          initial: "currencyInitals"
+          initial: "UAH"
         }, 
       ]
       
-      const dollarAmount = dollars * countries.rate
       
+      
+      
+      let exChange;
       for (let i = 0; i < countries.length; i++){
-        
+      const dollarAmount = dollars * countries[i].rate 
+      //  console.log("0", countries[i].rate)
+      //   console.log("1", countries[i].name)
+      //   console.log("2", country)
+        const currencyInitals = countries[i].initial
+        // console.log("3", currencyInitals)
           if (countries[i].name === country){
-            return `your exchange rate for ${dollarAmount} dollars in ${country} will be currency ${currencyInitals}`
+           exChange = `your exchange rate for ${dollarAmount} dollars in ${country} will be currency ${currencyInitals}`
           } else {
-            return `that ${country} is not on your list`
-          }
-      } 
+           exChange = `that country is not on your list`
+          } 
+      } return exChange
 }
+
+// console.log(currencyEx(3, "USA"))
 
 // function currencyEx (dollarAmount, exchangeRate, country, currencyInitals){ 
 // // if (){
@@ -668,52 +677,87 @@ function currencyEx (dollars, country){
 /// Write a function that takes an airport code and returns the city, country of that airport 
 // find the following codes AAA, ABZ, ABX, ABT, ACA */
 
-function code(airCode){
-  // let codeArr = [AAA, ABZ, ABX, ABT, ACA]
-  for (let i = 0; i < airCode.length; i++){
-    airCode[i].code
-    return `${airCode.city}, ${airCode.country}`
+function codeAir(airCode){
+  let air;
+  for (let i = 0; i < airports.length; i++){
+    if (airports[i].code === airCode){
+      // console.log("0", airports[i].code)
+       air = `${airports[i].city}, ${airports[i].country}`
+    }
+    // console.log("1", airports[i].city)
+    // console.log("2", airports[i].country)
   }
-}
+  return air
+} 
+// console.log(codeAir("ABX"))
+// console.log(codeAir("ACA"))
+
+
+
 
 /*TASK 4 🚀 
 // Write a function to that will find the phone number for an airport in a given city  */
 
-function phone (){
-  for (let numbers in airports){
-return airports[numbers].phone
+
+function phone (theCity){
+  for (let i = 0; i< airports.length; i++){
+     if(airports[i].city === theCity){
+      // console.log("0", theCity)
+      // console.log("1", airports[i].phone)
+      return airports[i].phone
+     }
   }
 }
+
+// console.log("final", phone("Allentown"))
+
 
 
 /*TASK 5 🚀 
 // Write a function that will return all the airports in a given country  */
-function airCountry () {
-  for (let i in aiports){
-    return airports[i].country
-  }
+function airCountry (givenCountry) {
+  let airArr = []
+  for (let i =0; i<airports.length; i++){
+    let countryAir = airports[i].country
+    if(countryAir === givenCountry){
+        airArr.push(airports[i])
+      //  console.log("1", airports[i])
+        
+    }
+  } return airArr
 }
+
+// console.log("final", airCountry("United States"))
 
 /*TASK 6 🚀 
 // Write a function that takes and airport name and returns the airport code
 // find the code for the following airports: Al Baha Airport, Ambler Airport, Abuja International Airport*/
 
 function nameCode(airName){
-  for(let i =0; i<airName.length; i++){
-    return airName[i].code
-  }
+  
+  for(let i = 0; i<airports.length; i++){
+    
+   
+    //console.log("1", airports[i].name)
+    if(airports[i].name === airName){
+      return airports[i].code 
+      
+    } //console.log("2",airports[i].code) 
+  } 
 }
-
+// console.log(nameCode("Ambler Airport"))
 
 /*TASK 7 🚀
 // Write a function that takes an airport code and returns the number of direct flights available */
 
 function directFlights(airportCode){
-  for(let i = 0; i<airportCode.length; i++){
-    return airportCode[i].direct_flights
+  for(let i = 0; i<airports.length; i++){
+    if(airports[i].code === airportCode){
+      return airports[i].direct_flights
+    } 
   } 
 }
-
+// console.log(directFlights("ABL"))
 
 /*TASK 8 🚀
 // Find out what your flight options are - write a function that returns a new array of all the country names in a set of data*/
@@ -721,6 +765,8 @@ function directFlights(airportCode){
 function options (){
   let countryNames = []
   for(let i = 0; i < airports.length; i++){
-    countryNames[i].push(airports.name)
-  }
+     countryNames.push(airports[i].name)
+    //  console.log(countryNames)
+   }return countryNames
 }
+console.log("final", options())
